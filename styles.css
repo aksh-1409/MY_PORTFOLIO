@@ -302,6 +302,14 @@ td {
     margin-top: 20px;
   }
 
+  .download-button-container {
+    position: static !important;
+    right: auto !important;
+    top: auto !important;
+    text-align: center;
+    margin-top: 20px;
+  }
+
   .intro {
     height: auto;
   }
@@ -422,6 +430,15 @@ td {
   .about img {
     width: 200px;
     height: 200px;
+  }
+
+  .download-button-container {
+    position: static !important;
+    right: auto !important;
+    top: auto !important;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 20px;
   }
 
   .intro h1 {
