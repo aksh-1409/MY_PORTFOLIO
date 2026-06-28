@@ -43,10 +43,27 @@
           </div>
         </div>
         <img src="profile.jpg" alt="profile pic" />
-        <div class="download-button-container" style="position: absolute; right: 15%; top: 420px; z-index: 3;">
+        <div class="download-button-container" style="position: absolute; right: 15%; top: 420px; z-index: 3; display: flex; gap: 12px; align-items: center;">
+          <!-- View Resume -->
+          <a href="Aksh_usrathe(1).pdf" target="_blank" rel="noopener noreferrer">
+            <button id="btn-view-resume"
+              style="padding: 12px 24px; background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; border: none; border-radius: 8px; cursor: pointer; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 16px; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.35);"
+              onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 22px rgba(124, 58, 237, 0.55)'"
+              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(124, 58, 237, 0.35)'"
+              onmousedown="this.style.transform='scale(0.96)'"
+              onmouseup="this.style.transform='translateY(-2px)'">
+              👁 View Resume
+            </button>
+          </a>
+          <!-- Download Resume -->
           <a href="Aksh_usrathe(1).pdf" download="Aksh_usrathe(1).pdf">
-            <button style="padding: 12px 24px; background: linear-gradient(135deg, #00d4aa, #00b894); color: white; border: none; border-radius: 8px; cursor: pointer; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 16px; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 212, 170, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 212, 170, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0, 212, 170, 0.3)'">
-              Download Resume
+            <button id="btn-download-resume"
+              style="padding: 12px 24px; background: linear-gradient(135deg, #00d4aa, #00b894); color: white; border: none; border-radius: 8px; cursor: pointer; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 16px; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 212, 170, 0.3);"
+              onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 212, 170, 0.5)'"
+              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0, 212, 170, 0.3)'"
+              onmousedown="this.style.transform='scale(0.96)'"
+              onmouseup="this.style.transform='translateY(-2px)'">
+              ⬇ Download Resume
             </button>
           </a>
         </div>
