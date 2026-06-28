@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Core Java – Aksh Usrathe</title>
+    <meta name="description" content="Core Java syllabus and topics learned by Aksh Usrathe – Java Developer." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ── Page-specific overrides ── */
+      body { font-family: 'Inter', 'Gill Sans', sans-serif; }
+
+      /* ── Back link ── */
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #00d4aa;
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        margin: 28px 0 0 10%;
+        transition: gap 0.2s ease, opacity 0.2s ease;
+      }
+      .back-link:hover { gap: 14px; opacity: 0.85; }
+      .back-link .arrow { font-size: 1.15rem; }
+
+      /* ── Hero banner ── */
+      .cj-hero {
+        position: relative;
+        overflow: hidden;
+        padding: 72px 10% 60px;
+        text-align: center;
+      }
+      .cj-hero canvas {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .cj-hero-content { position: relative; z-index: 2; }
+      .cj-badge {
+        display: inline-block;
+        background: rgba(0,212,170,0.12);
+        border: 1px solid rgba(0,212,170,0.4);
+        color: #00d4aa;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 5px 16px;
+        border-radius: 999px;
+        margin-bottom: 20px;
+      }
+      .cj-hero h1 {
+        font-size: clamp(2rem, 5vw, 3.4rem);
+        font-weight: 800;
+        color: #fff;
+        line-height: 1.15;
+        margin-bottom: 14px;
+      }
+      .cj-hero h1 span { color: #00d4aa; }
+      .cj-hero p {
+        color: rgba(255,255,255,0.6);
+        font-size: 1rem;
+        max-width: 540px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+      .cj-stats {
+        display: flex;
+        justify-content: center;
+        gap: 48px;
+        margin-top: 42px;
+        flex-wrap: wrap;
+      }
+      .cj-stat { text-align: center; }
+      .cj-stat .num {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #00d4aa;
+        display: block;
+      }
+      .cj-stat .lbl {
+        font-size: 0.78rem;
+        color: rgba(255,255,255,0.45);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      /* ── Divider ── */
+      .section-divider {
+        display: block;
+        width: 70%;
+        margin: 0 auto 60px;
+        border: none;
+        border-top: 1px solid rgba(0,212,170,0.18);
+      }
+
+      /* ── Category section ── */
+      .cj-section { padding: 0 8% 64px; }
+      .cj-section-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #00d4aa;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .cj-section-title::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: rgba(0,212,170,0.2);
+      }
+
+      /* ── Topic grid ── */
+      .cj-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 14px;
+      }
+      .cj-card {
+        background: rgba(0,212,170,0.04);
+        border: 1px solid rgba(0,212,170,0.14);
+        border-radius: 12px;
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: default;
+        transition: transform 0.22s ease, background 0.22s ease,
+                    border-color 0.22s ease, box-shadow 0.22s ease;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      .cj-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .cj-card:hover {
+        transform: translateY(-4px);
+        background: rgba(0,212,170,0.12);
+        border-color: rgba(0,212,170,0.5);
+        box-shadow: 0 8px 28px rgba(0,212,170,0.18);
+      }
+      .cj-card-icon {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        background: rgba(0,212,170,0.12);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+      }
+      .cj-card-text {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: rgba(255,255,255,0.85);
+        line-height: 1.4;
+      }
+      .cj-card:hover .cj-card-text { color: #00d4aa; }
+
+      /* ── Progress bar strip ── */
+      .cj-progress-wrap {
+        background: rgba(0,212,170,0.07);
+        border: 1px solid rgba(0,212,170,0.18);
+        border-radius: 16px;
+        padding: 28px 32px;
+        margin: 0 8% 64px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .cj-progress-wrap .pw-label {
+        font-size: 0.9rem;
+        color: #fff;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .cj-bar-track {
+        flex: 1;
+        min-width: 180px;
+        height: 8px;
+        background: rgba(255,255,255,0.08);
+        border-radius: 99px;
+        overflow: hidden;
+      }
+      .cj-bar-fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #00d4aa, #00b894);
+        border-radius: 99px;
+        transition: width 1.4s cubic-bezier(0.16,1,0.3,1);
+      }
+      .cj-bar-pct {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #00d4aa;
+        white-space: nowrap;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 600px) {
+        .cj-hero { padding: 48px 5% 40px; }
+        .back-link { margin-left: 5%; }
+        .cj-section { padding: 0 5% 48px; }
+        .cj-progress-wrap { margin: 0 5% 48px; padding: 20px; }
+        .cj-grid { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 400px) {
+        .cj-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cursor-glow"></div>
+
+    <!-- ── Nav (reuse portfolio nav) ── -->
+    <nav>
+      <h4>Aksh Usrathe</h4>
+      <div id="nav">
+        <a class="nav-link" href="https://github.com/aksh-1409"><img style="background-color:aqua;border-radius:10px" src="github.png" alt="GitHub" /></a>
+        <a class="nav-link" href="https://leetcode.com/u/aksh_usrathe1401/"><img src="leetcode.png" alt="LeetCode" /></a>
+        <a class="nav-link" href="https://www.linkedin.com/in/aksh-usrathe-02462930b/"><img src="linkedin.png" alt="LinkedIn" /></a>
+      </div>
+    </nav>
+
+    <!-- ── Back link ── -->
+    <a class="back-link" href="index.html" id="back-btn">
+      <span class="arrow">←</span> Back to Portfolio
+    </a>
+
+    <!-- ── Hero ── -->
+    <section class="cj-hero">
+      <canvas id="cj-canvas"></canvas>
+      <div class="cj-hero-content">
+        <div class="cj-badge">Skills &amp; Learning</div>
+        <h1>Core <span>Java</span> Syllabus</h1>
+        <p>A complete map of Core Java topics I've studied — from fundamentals to advanced concepts like Lambdas, Generics, and JDBC.</p>
+        <div class="cj-stats">
+          <div class="cj-stat"><span class="num" id="stat-topics">0</span><span class="lbl">Topics Covered</span></div>
+          <div class="cj-stat"><span class="num" id="stat-categories">0</span><span class="lbl">Categories</span></div>
+          <div class="cj-stat"><span class="num">100<span style="font-size:1.2rem">%</span></span><span class="lbl">Completed</span></div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ── Progress bar ── -->
+    <div class="cj-progress-wrap" id="progress-wrap">
+      <span class="pw-label">Overall Syllabus Progress</span>
+      <div class="cj-bar-track"><div class="cj-bar-fill" id="cj-bar"></div></div>
+      <span class="cj-bar-pct">100%</span>
+    </div>
+
+    <!-- ─────────────────────────────────────────────────
+         TOPIC SECTIONS
+         ───────────────────────────────────────────────── -->
+
+    <!-- 1. Foundations -->
+    <section class="cj-section reveal">
+      <div class="cj-section-title">Foundations</div>
+      <div class="cj-grid" id="grid-foundations"></div>
+    </section>
+
+    <!-- 2. OOP Core -->
+    <section class="cj-section reveal">
+      <div class="cj-section-title">Object-Oriented Programming</div>
+      <div class="cj-grid" id="grid-oop"></div>
+    </section>
+
+    <!-- 3. OOP Advanced -->
+    <section class="cj-section reveal">
+      <div class="cj-section-title">OOP – Advanced Concepts</div>
+      <div class="cj-grid" id="grid-oop-adv"></div>
+    </section>
+
+    <!-- 4. Language Internals -->
+    <section class="cj-section reveal">
+      <div class="cj-section-title">Language Internals</div>
+      <div class="cj-grid" id="grid-internals"></div>
+    </section>
+
+    <!-- 5. Core APIs -->
+    <section class="cj-section reveal">
+      <div class="cj-section-title">Core APIs &amp; Data Handling</div>
+      <div class="cj-grid" id="grid-apis"></div>
+    </section>
+
+    <!-- 6. Concurrency & Collections -->
+    <section class="cj-section reveal">
+      <div class="cj-section-title">Concurrency &amp; Collections</div>
+      <div class="cj-grid" id="grid-concurrency"></div>
+    </section>
+
+    <!-- 7. I/O & Persistence -->
+    <section class="cj-section reveal">
+      <div class="cj-section-title">I/O &amp; Persistence</div>
+      <div class="cj-grid" id="grid-io"></div>
+    </section>
+
+    <!-- 8. Advanced Java -->
+    <section class="cj-section reveal">
+      <div class="cj-section-title">Advanced Java Features</div>
+      <div class="cj-grid" id="grid-advanced"></div>
+    </section>
+
+    <!-- 9. Design & Best Practices -->
+    <section class="cj-section reveal">
+      <div class="cj-section-title">Design Principles &amp; Best Practices</div>
+      <div class="cj-grid" id="grid-design"></div>
+    </section>
+
+    <!-- ── Footer strip ── -->
+    <footer id="footer" style="padding-bottom:32px;">
+      <div class="footer-accent-bar"></div>
+      <hr id="footer-line" />
+      <div id="footer-div">
+        <div id="footer-name-div">
+          <h2 id="footer-name">Aksh</h2>
+          <h2 id="footer-name" style="margin-left:12px;">9399765924</h2>
+        </div>
+        <div id="footer-a-div">
+          <a href="https://github.com/aksh-1409"><img src="github.png" width="35px" height="35px" alt="GitHub" /></a>
+          <a href="https://leetcode.com/u/aksh_usrathe1401/"><img src="leetcode.png" width="35px" height="35px" alt="LeetCode" /></a>
+          <a href="https://www.linkedin.com/in/aksh-usrathe-02462930b/"><img src="linkedin.png" width="35px" height="35px" alt="LinkedIn" /></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ════════════════════════════════════════════
+         SCRIPTS
+         ════════════════════════════════════════════ -->
+    <script>
+      /* ── Topic Data ── */
+      const sections = [
+        {
+          id: 'grid-foundations',
+          icon: '☕',
+          topics: [
+            { icon:'📌', text:'Introduction' },
+            { icon:'🔑', text:'Keywords' },
+            { icon:'🔢', text:'Data Types' },
+            { icon:'💎', text:'Constants (Literals)' },
+            { icon:'🏷️', text:'Identifiers' },
+            { icon:'📐', text:'Programming Convention' },
+          ]
+        },
+        {
+          id: 'grid-oop',
+          topics: [
+            { icon:'📦', text:'Variables & Methods' },
+            { icon:'🏛️', text:'Class & Objects' },
+            { icon:'🏗️', text:'Constructors & Instantiation' },
+            { icon:'⚡', text:'Static Keyword' },
+            { icon:'🔭', text:'Instance Context & Class Context' },
+            { icon:'🔗', text:'Access Through Instantiation & Inheritance' },
+            { icon:'🔍', text:'Resolve Class in Access' },
+            { icon:'📦', text:'Packages & Imports' },
+            { icon:'🔒', text:'Access Controls' },
+            { icon:'📄', text:'One File One Class' },
+            { icon:'📚', text:'Class Library (JAVA API)' },
+          ]
+        },
+        {
+          id: 'grid-oop-adv',
+          topics: [
+            { icon:'🚫', text:'Final Keyword' },
+            { icon:'🧬', text:'Class Inheritance' },
+            { icon:'🌀', text:'Abstract Keyword' },
+            { icon:'🔌', text:'Interface Keyword' },
+            { icon:'🎭', text:'Polymorphism' },
+            { icon:'🧬', text:'Inheritance' },
+            { icon:'✏️', text:'Method Overriding' },
+            { icon:'📋', text:'Method Overloading' },
+          ]
+        },
+        {
+          id: 'grid-internals',
+          topics: [
+            { icon:'📏', text:'Variable Scope' },
+            { icon:'🔄', text:'Conversion & Casting' },
+            { icon:'🏗️', text:'Constructors' },
+            { icon:'🧱', text:'Initialization Blocks' },
+          ]
+        },
+        {
+          id: 'grid-apis',
+          topics: [
+            { icon:'🗃️', text:'Array Handling' },
+            { icon:'🔤', text:'String Handling' },
+            { icon:'📦', text:'Wrapper Classes' },
+          ]
+        },
+        {
+          id: 'grid-concurrency',
+          topics: [
+            { icon:'⚠️', text:'Exception Handling' },
+            { icon:'🧵', text:'Multi-Threading' },
+            { icon:'🗂️', text:'Collection Framework' },
+            { icon:'🔬', text:'Generics' },
+          ]
+        },
+        {
+          id: 'grid-io',
+          topics: [
+            { icon:'📁', text:'File Handling' },
+            { icon:'📖', text:'File Reading & Writing' },
+            { icon:'💾', text:'Serialization' },
+            { icon:'🗄️', text:'JDBC' },
+          ]
+        },
+        {
+          id: 'grid-advanced',
+          topics: [
+            { icon:'🔲', text:'Inner Class and Nested Class' },
+            { icon:'🔍', text:'Pattern Matcher (Regex)' },
+            { icon:'🏷️', text:'Enum' },
+            { icon:'📝', text:'Var-Args' },
+            { icon:'🏷️', text:'Annotation' },
+            { icon:'🪞', text:'Reflection' },
+            { icon:'✅', text:'Assertion' },
+            { icon:'λ', text:'Functional Interface' },
+            { icon:'➜', text:'Lambda Expression' },
+            { icon:'📋', text:'Cloning' },
+            { icon:'🔒', text:'Singleton class & Immutable class' },
+            { icon:'🌍', text:'Internationalization & Localization' },
+          ]
+        },
+        {
+          id: 'grid-design',
+          topics: [
+            { icon:'🛡️', text:'Abstraction & Encapsulation' },
+            { icon:'⚖️', text:'Cohesion & Coupling' },
+          ]
+        }
+      ];
+
+      /* ── Render cards ── */
+      let totalTopics = 0;
+      sections.forEach(sec => { totalTopics += sec.topics.length; });
+
+      function renderCards() {
+        sections.forEach(sec => {
+          const grid = document.getElementById(sec.id);
+          if (!grid) return;
+          sec.topics.forEach((t, i) => {
+            const card = document.createElement('div');
+            card.className = 'cj-card';
+            card.style.transitionDelay = `${i * 40}ms`;
+            card.innerHTML = `
+              <div class="cj-card-icon">${t.icon}</div>
+              <div class="cj-card-text">${t.text}</div>`;
+            grid.appendChild(card);
+          });
+        });
+      }
+      renderCards();
+
+      /* ── Count-up animation ── */
+      function countUp(el, target, dur) {
+        const start = performance.now();
+        function step(now) {
+          const t = Math.min((now - start) / dur, 1);
+          el.textContent = Math.round(t * target);
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+      const statTopics = document.getElementById('stat-topics');
+      const statCats   = document.getElementById('stat-categories');
+      countUp(statTopics, totalTopics, 1200);
+      countUp(statCats,   sections.length, 900);
+
+      /* ── Progress bar trigger ── */
+      const barEl = document.getElementById('cj-bar');
+      const progressObs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          barEl.style.width = '100%';
+          progressObs.disconnect();
+        }
+      }, { threshold: 0.3 });
+      progressObs.observe(document.getElementById('progress-wrap'));
+
+      /* ── Scroll reveal (sections + cards) ── */
+      const revealEls = document.querySelectorAll('.reveal');
+      const revealObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.08 });
+      revealEls.forEach(el => revealObs.observe(el));
+
+      const cardObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.cj-card').forEach(c => cardObs.observe(c));
+
+      /* ── Particle canvas (matches portfolio hero) ── */
+      (function() {
+        const canvas = document.getElementById('cj-canvas');
+        const ctx = canvas.getContext('2d');
+        function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+        window.addEventListener('resize', resize); resize();
+        const COUNT = 40, MAX_DIST = 120, COLOR = '0, 212, 170';
+        const particles = Array.from({ length: COUNT }, () => ({
+          x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+          vx: (Math.random()-0.5)*0.4, vy: (Math.random()-0.5)*0.4,
+          r: Math.random()*2+1
+        }));
+        function draw() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+            ctx.fillStyle = `rgba(${COLOR},0.8)`; ctx.shadowColor = `rgba(${COLOR},0.5)`;
+            ctx.shadowBlur = 6; ctx.fill(); ctx.shadowBlur = 0;
+            for (let j = i+1; j < particles.length; j++) {
+              const p2 = particles[j], dx = p.x-p2.x, dy = p.y-p2.y;
+              const dist = Math.sqrt(dx*dx+dy*dy);
+              if (dist < MAX_DIST) {
+                ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p2.x,p2.y);
+                ctx.strokeStyle = `rgba(${COLOR},${(1-dist/MAX_DIST)*0.4})`;
+                ctx.lineWidth = 0.6; ctx.stroke();
+              }
+            }
+          }
+          requestAnimationFrame(draw);
+        }
+        draw();
+      })();
+
+      /* ── Cursor glow ── */
+      const glow = document.getElementById('cursor-glow');
+      document.addEventListener('mousemove', e => {
+        glow.style.left = e.clientX + 'px';
+        glow.style.top  = e.clientY + 'px';
+      });
+    </script>
+  </body>
+</html>

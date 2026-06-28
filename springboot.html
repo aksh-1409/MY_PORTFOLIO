@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spring Boot – Aksh Usrathe</title>
+    <meta name="description" content="Spring Boot syllabus and topics learned by Aksh Usrathe – Java Developer." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ── Spring Boot accent colour (teal – matches portfolio) ── */
+      :root {
+        --sb: 0, 212, 170;           /* Portfolio teal RGB */
+        --sb-hex: #00d4aa;
+        --sb-dark: #00b894;
+      }
+
+      body { font-family: 'Inter', 'Gill Sans', sans-serif; }
+
+      /* ── Scrollbar tint ── */
+      ::-webkit-scrollbar-thumb { background: var(--sb-hex) !important; }
+      ::-webkit-scrollbar-thumb:hover { background: var(--sb-dark) !important; }
+
+      /* ── Nav border tint ── */
+      nav { border-bottom-color: rgba(var(--sb),0.18) !important; }
+
+      /* ── Back link ── */
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--sb-hex);
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        margin: 28px 0 0 10%;
+        transition: gap 0.2s ease, opacity 0.2s ease;
+      }
+      .back-link:hover { gap: 14px; opacity: 0.85; }
+
+      /* ── Hero ── */
+      .sb-hero {
+        position: relative;
+        overflow: hidden;
+        padding: 72px 10% 60px;
+        text-align: center;
+      }
+      .sb-hero canvas {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .sb-hero-content { position: relative; z-index: 2; }
+
+      .sb-badge {
+        display: inline-block;
+        background: rgba(var(--sb),0.12);
+        border: 1px solid rgba(var(--sb),0.45);
+        color: var(--sb-hex);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 5px 16px;
+        border-radius: 999px;
+        margin-bottom: 20px;
+      }
+
+      .sb-hero h1 {
+        font-size: clamp(2rem, 5vw, 3.4rem);
+        font-weight: 800;
+        color: #fff;
+        line-height: 1.15;
+        margin-bottom: 14px;
+      }
+      .sb-hero h1 span { color: var(--sb-hex); }
+
+      .sb-hero p {
+        color: rgba(255,255,255,0.6);
+        font-size: 1rem;
+        max-width: 560px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+
+      .sb-stats {
+        display: flex;
+        justify-content: center;
+        gap: 48px;
+        margin-top: 42px;
+        flex-wrap: wrap;
+      }
+      .sb-stat .num {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--sb-hex);
+        display: block;
+      }
+      .sb-stat .lbl {
+        font-size: 0.78rem;
+        color: rgba(255,255,255,0.45);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      /* ── Divider ── */
+      .section-divider {
+        display: block;
+        width: 70%;
+        margin: 0 auto 60px;
+        border: none;
+        border-top: 1px solid rgba(var(--sb),0.18);
+      }
+
+      /* ── Progress bar ── */
+      .sb-progress-wrap {
+        background: rgba(var(--sb),0.07);
+        border: 1px solid rgba(var(--sb),0.2);
+        border-radius: 16px;
+        padding: 28px 32px;
+        margin: 0 8% 64px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .sb-progress-wrap .pw-label {
+        font-size: 0.9rem;
+        color: #fff;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .sb-bar-track {
+        flex: 1;
+        min-width: 180px;
+        height: 8px;
+        background: rgba(255,255,255,0.08);
+        border-radius: 99px;
+        overflow: hidden;
+      }
+      .sb-bar-fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, var(--sb-hex), var(--sb-dark));
+        border-radius: 99px;
+        transition: width 1.4s cubic-bezier(0.16,1,0.3,1);
+      }
+      .sb-bar-pct {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: var(--sb-hex);
+      }
+
+      /* ── Module tabs ── */
+      .module-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 0 8% 40px;
+      }
+      .module-tab {
+        padding: 8px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(var(--sb),0.25);
+        background: rgba(var(--sb),0.06);
+        color: rgba(255,255,255,0.6);
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        letter-spacing: 0.04em;
+      }
+      .module-tab:hover,
+      .module-tab.active {
+        background: rgba(var(--sb),0.18);
+        border-color: rgba(var(--sb),0.6);
+        color: var(--sb-hex);
+      }
+
+      /* ── Category section ── */
+      .sb-section { padding: 0 8% 64px; }
+      .sb-section-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+      .sb-section-icon {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        border-radius: 10px;
+        background: rgba(var(--sb),0.12);
+        border: 1px solid rgba(var(--sb),0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+      }
+      .sb-section-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--sb-hex);
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+      }
+      .sb-section-count {
+        margin-left: auto;
+        font-size: 0.75rem;
+        color: rgba(255,255,255,0.35);
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.08);
+        padding: 3px 10px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+      .sb-section-line {
+        flex: 1;
+        height: 1px;
+        background: rgba(var(--sb),0.18);
+      }
+
+      /* ── Topic grid ── */
+      .sb-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+        gap: 12px;
+      }
+      .sb-card {
+        background: rgba(var(--sb),0.04);
+        border: 1px solid rgba(var(--sb),0.12);
+        border-radius: 12px;
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: default;
+        transition: transform 0.22s ease, background 0.22s ease,
+                    border-color 0.22s ease, box-shadow 0.22s ease;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      .sb-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .sb-card:hover {
+        transform: translateY(-4px);
+        background: rgba(var(--sb),0.12);
+        border-color: rgba(var(--sb),0.5);
+        box-shadow: 0 8px 28px rgba(var(--sb),0.18);
+      }
+      .sb-card-icon {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        background: rgba(var(--sb),0.12);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.95rem;
+      }
+      .sb-card-text {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: rgba(255,255,255,0.82);
+        line-height: 1.4;
+      }
+      .sb-card:hover .sb-card-text { color: var(--sb-hex); }
+
+      /* ── Cursor glow (teal – matches portfolio) ── */
+      #cursor-glow {
+        background: radial-gradient(circle, rgba(var(--sb),0.06) 0%, transparent 70%) !important;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 600px) {
+        .sb-hero { padding: 48px 5% 40px; }
+        .back-link { margin-left: 5%; }
+        .sb-section { padding: 0 5% 48px; }
+        .sb-progress-wrap { margin: 0 5% 48px; padding: 20px; }
+        .module-tabs { padding: 0 5% 32px; }
+        .sb-grid { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 400px) {
+        .sb-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cursor-glow"></div>
+
+    <!-- ── Nav ── -->
+    <nav>
+      <h4>Aksh Usrathe</h4>
+      <div id="nav">
+        <a class="nav-link" href="https://github.com/aksh-1409"><img style="background-color:aqua;border-radius:10px" src="github.png" alt="GitHub" /></a>
+        <a class="nav-link" href="https://leetcode.com/u/aksh_usrathe1401/"><img src="leetcode.png" alt="LeetCode" /></a>
+        <a class="nav-link" href="https://www.linkedin.com/in/aksh-usrathe-02462930b/"><img src="linkedin.png" alt="LinkedIn" /></a>
+      </div>
+    </nav>
+
+    <!-- ── Back ── -->
+    <a class="back-link" href="index.html">
+      <span>←</span> Back to Portfolio
+    </a>
+
+    <!-- ── Hero ── -->
+    <section class="sb-hero">
+      <canvas id="sb-canvas"></canvas>
+      <div class="sb-hero-content">
+        <div class="sb-badge">🌿 Skills &amp; Learning</div>
+        <h1><span>Spring Boot</span> Syllabus</h1>
+        <p>My complete Spring Boot learning path — from Spring Core &amp; JPA to Microservices, Security, and Cloud integration.</p>
+        <div class="sb-stats">
+          <div class="sb-stat"><span class="num" id="stat-topics">0</span><span class="lbl">Topics Covered</span></div>
+          <div class="sb-stat"><span class="num" id="stat-modules">0</span><span class="lbl">Modules</span></div>
+          <div class="sb-stat"><span class="num">100<span style="font-size:1.2rem">%</span></span><span class="lbl">Completed</span></div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ── Progress bar ── -->
+    <div class="sb-progress-wrap" id="progress-wrap">
+      <span class="pw-label">Overall Syllabus Progress</span>
+      <div class="sb-bar-track"><div class="sb-bar-fill" id="sb-bar"></div></div>
+      <span class="sb-bar-pct">100%</span>
+    </div>
+
+    <!-- ── Quick-jump tabs ── -->
+    <div class="module-tabs" id="module-tabs"></div>
+
+    <!-- ── Sections injected by JS ── -->
+    <div id="sb-content"></div>
+
+    <!-- ── Footer ── -->
+    <footer id="footer" style="padding-bottom:32px;">
+      <div class="footer-accent-bar"></div>
+      <hr id="footer-line" />
+      <div id="footer-div">
+        <div id="footer-name-div">
+          <h2 id="footer-name">Aksh</h2>
+          <h2 id="footer-name" style="margin-left:12px;">9399765924</h2>
+        </div>
+        <div id="footer-a-div">
+          <a href="https://github.com/aksh-1409"><img src="github.png" width="35px" height="35px" alt="GitHub" /></a>
+          <a href="https://leetcode.com/u/aksh_usrathe1401/"><img src="leetcode.png" width="35px" height="35px" alt="LeetCode" /></a>
+          <a href="https://www.linkedin.com/in/aksh-usrathe-02462930b/"><img src="linkedin.png" width="35px" height="35px" alt="LinkedIn" /></a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+    /* ══════════════════════════════════════════════
+       DATA
+    ══════════════════════════════════════════════ */
+    const modules = [
+      {
+        id: 'spring-boot',
+        label: 'Spring Boot',
+        icon: '🚀',
+        topics: [
+          { icon:'📖', text:'SpringBoot Introduction' },
+          { icon:'⚖️', text:'Spring VS SpringBoot' },
+          { icon:'✅', text:'Advantages' },
+          { icon:'🛠️', text:'SpringBoot App Creation' },
+          { icon:'📦', text:'Starter POMs' },
+          { icon:'⚙️', text:'SpringBoot Internals' },
+          { icon:'🏷️', text:'@SpringBoot Applications' },
+          { icon:'▶️', text:'run() Method Internals' },
+          { icon:'🤖', text:'Auto Configuration' },
+          { icon:'🐳', text:'Embedded Containers' },
+          { icon:'📊', text:'Actuators' },
+          { icon:'🏃', text:'Runners' },
+          { icon:'📝', text:'Properties VS YML' },
+        ]
+      },
+      {
+        id: 'spring-core',
+        label: 'Spring Core',
+        icon: '🧩',
+        topics: [
+          { icon:'📖', text:'Introduction' },
+          { icon:'🏛️', text:'Spring Architecture' },
+          { icon:'🫙', text:'IOC Container' },
+          { icon:'💉', text:'Dependency Injection' },
+          { icon:'🏗️', text:'Constructor Injection' },
+          { icon:'⚙️', text:'Setter Injection' },
+          { icon:'🔦', text:'Field Injection' },
+          { icon:'🫘', text:'Spring Beans' },
+          { icon:'🔄', text:'Bean Lifecycle' },
+          { icon:'🔭', text:'Bean Scope' },
+          { icon:'🔍', text:'Component Scanning' },
+          { icon:'🔗', text:'Autowiring' },
+        ]
+      },
+      {
+        id: 'spring-jpa',
+        label: 'Spring JPA',
+        icon: '🗄️',
+        topics: [
+          { icon:'📖', text:'Introduction to JPA' },
+          { icon:'🗺️', text:'Introduction to ORM' },
+          { icon:'📋', text:'Entities' },
+          { icon:'🏦', text:'Repositories' },
+          { icon:'📂', text:'CrudRepo' },
+          { icon:'📂', text:'JPARepo' },
+          { icon:'🔎', text:'Findby Methods' },
+          { icon:'🛠️', text:'Custom Queries' },
+          { icon:'🔑', text:'Generators' },
+          { icon:'🔍', text:'QBE (Query By Example)' },
+          { icon:'🔗', text:'Association Mapping' },
+          { icon:'💳', text:'Transactions' },
+          { icon:'🌐', text:'Spring Profiles' },
+          { icon:'📄', text:'Pagination' },
+          { icon:'🔢', text:'Sorting' },
+        ]
+      },
+      {
+        id: 'spring-mvc',
+        label: 'Spring MVC',
+        icon: '🖥️',
+        topics: [
+          { icon:'📡', text:'Dispatcher Servlet' },
+          { icon:'🗺️', text:'Handler Mapper' },
+          { icon:'🎮', text:'Controllers' },
+          { icon:'🏗️', text:'Models' },
+          { icon:'👁️', text:'Views' },
+          { icon:'🔭', text:'View Resolvers' },
+          { icon:'🍃', text:'Thymeleaf' },
+          { icon:'📝', text:'Forms' },
+          { icon:'✅', text:'Validations' },
+          { icon:'📋', text:'Logging' },
+          { icon:'📧', text:'Email Sending' },
+        ]
+      },
+      {
+        id: 'spring-rest',
+        label: 'Spring REST',
+        icon: '🌐',
+        topics: [
+          { icon:'🌍', text:'Distributed Application' },
+          { icon:'🏛️', text:'REST Architecture' },
+          { icon:'📐', text:'REST Principles' },
+          { icon:'🌐', text:'HTTP Protocol' },
+          { icon:'🔧', text:'HTTP Methods' },
+          { icon:'📨', text:'HTTP Request & Response' },
+          { icon:'🔢', text:'Status Code' },
+          { icon:'📦', text:'JSON Data' },
+          { icon:'🔄', text:'JACKSON API' },
+          { icon:'🛠️', text:'REST API Development' },
+          { icon:'🎮', text:'REST Controllers' },
+          { icon:'❓', text:'QUERY Parameters' },
+          { icon:'📌', text:'PATH Variables' },
+          { icon:'📥', text:'REQUEST Body' },
+          { icon:'📤', text:'RESPONSE Body' },
+          { icon:'🎭', text:'Media Types' },
+          { icon:'📮', text:'POSTMAN' },
+          { icon:'📑', text:'SWAGGER' },
+          { icon:'⚠️', text:'Exception Handling' },
+          { icon:'📂', text:'REST Repositories' },
+          { icon:'📡', text:'REST Template' },
+          { icon:'🌊', text:'Web Client' },
+        ]
+      },
+      {
+        id: 'microservices',
+        label: 'Microservices',
+        icon: '🔬',
+        topics: [
+          { icon:'📖', text:'Introduction' },
+          { icon:'⚙️', text:'How It Works' },
+          { icon:'📐', text:'Microservices Design' },
+          { icon:'📋', text:'Service Registry' },
+          { icon:'🖥️', text:'Admin Server' },
+          { icon:'🔍', text:'Zipkin Server' },
+          { icon:'⚙️', text:'Config Server' },
+          { icon:'🤝', text:'Feign Client' },
+          { icon:'⚖️', text:'Load Balancing' },
+          { icon:'🚪', text:'API Gateway' },
+          { icon:'🔧', text:'Filters' },
+          { icon:'🗺️', text:'Routings' },
+          { icon:'🛠️', text:'API Development' },
+          { icon:'📨', text:'KAFKA Integration' },
+          { icon:'⚡', text:'REDIS Integration' },
+          { icon:'☁️', text:'Spring Cloud Library' },
+        ]
+      },
+      {
+        id: 'spring-security',
+        label: 'Spring Security',
+        icon: '🔒',
+        topics: [
+          { icon:'🔐', text:'Authentication' },
+          { icon:'🛡️', text:'Authorization' },
+          { icon:'💾', text:'In Memory Authentication' },
+          { icon:'👤', text:'User Details Service' },
+          { icon:'🔑', text:'Auth Provider' },
+          { icon:'🌐', text:'OAuth 2.0' },
+          { icon:'🎫', text:'JWT' },
+          { icon:'⚙️', text:'Spring Batch' },
+          { icon:'⏰', text:'Spring Scheduler' },
+        ]
+      },
+    ];
+
+    /* ══════════════════════════════════════════════
+       COUNT
+    ══════════════════════════════════════════════ */
+    let totalTopics = 0;
+    modules.forEach(m => totalTopics += m.topics.length);
+
+    /* ══════════════════════════════════════════════
+       RENDER TABS
+    ══════════════════════════════════════════════ */
+    const tabsContainer = document.getElementById('module-tabs');
+    modules.forEach((m, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'module-tab' + (i === 0 ? ' active' : '');
+      btn.textContent = `${m.icon} ${m.label}`;
+      btn.dataset.target = m.id;
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.module-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const el = document.getElementById('section-' + m.id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      tabsContainer.appendChild(btn);
+    });
+
+    /* ══════════════════════════════════════════════
+       RENDER SECTIONS & CARDS
+    ══════════════════════════════════════════════ */
+    const content = document.getElementById('sb-content');
+
+    modules.forEach(m => {
+      // section wrapper
+      const sec = document.createElement('section');
+      sec.className = 'sb-section reveal';
+      sec.id = 'section-' + m.id;
+
+      // header
+      const header = document.createElement('div');
+      header.className = 'sb-section-header';
+      header.innerHTML = `
+        <div class="sb-section-icon">${m.icon}</div>
+        <div class="sb-section-title">${m.label}</div>
+        <div class="sb-section-line"></div>
+        <div class="sb-section-count">${m.topics.length} topics</div>`;
+      sec.appendChild(header);
+
+      // grid
+      const grid = document.createElement('div');
+      grid.className = 'sb-grid';
+
+      m.topics.forEach((t, i) => {
+        const card = document.createElement('div');
+        card.className = 'sb-card';
+        card.style.transitionDelay = `${i * 35}ms`;
+        card.innerHTML = `
+          <div class="sb-card-icon">${t.icon}</div>
+          <div class="sb-card-text">${t.text}</div>`;
+        grid.appendChild(card);
+      });
+
+      sec.appendChild(grid);
+      content.appendChild(sec);
+    });
+
+    /* ══════════════════════════════════════════════
+       INTERSECTION OBSERVERS
+    ══════════════════════════════════════════════ */
+    // Scroll reveal for sections
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.06 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    // Card reveal
+    const cardObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.sb-card').forEach(c => cardObs.observe(c));
+
+    // Progress bar
+    const barEl = document.getElementById('sb-bar');
+    const progressObs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { barEl.style.width = '100%'; progressObs.disconnect(); }
+    }, { threshold: 0.3 });
+    progressObs.observe(document.getElementById('progress-wrap'));
+
+    // Active tab on scroll
+    const sectionEls = modules.map(m => document.getElementById('section-' + m.id));
+    const tabEls = Array.from(document.querySelectorAll('.module-tab'));
+    const activeTabObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const idx = sectionEls.indexOf(e.target);
+          if (idx !== -1) {
+            tabEls.forEach(b => b.classList.remove('active'));
+            tabEls[idx].classList.add('active');
+          }
+        }
+      });
+    }, { threshold: 0.4 });
+    sectionEls.forEach(el => { if (el) activeTabObs.observe(el); });
+
+    /* ══════════════════════════════════════════════
+       COUNT-UP
+    ══════════════════════════════════════════════ */
+    function countUp(el, target, dur) {
+      const start = performance.now();
+      function step(now) {
+        const t = Math.min((now - start) / dur, 1);
+        el.textContent = Math.round(t * target);
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    countUp(document.getElementById('stat-topics'),  totalTopics,    1300);
+    countUp(document.getElementById('stat-modules'), modules.length, 900);
+
+    /* ══════════════════════════════════════════════
+       PARTICLE CANVAS
+    ══════════════════════════════════════════════ */
+    (function() {
+      const canvas = document.getElementById('sb-canvas');
+      const ctx = canvas.getContext('2d');
+      function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+      window.addEventListener('resize', resize); resize();
+      const COUNT = 45, MAX_DIST = 120, COLOR = '0, 212, 170';
+      const particles = Array.from({ length: COUNT }, () => ({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 2 + 1
+      }));
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${COLOR},0.8)`;
+          ctx.shadowColor = `rgba(${COLOR},0.5)`; ctx.shadowBlur = 6;
+          ctx.fill(); ctx.shadowBlur = 0;
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j], dx = p.x - p2.x, dy = p.y - p2.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < MAX_DIST) {
+              ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y);
+              ctx.strokeStyle = `rgba(${COLOR},${(1 - dist / MAX_DIST) * 0.4})`;
+              ctx.lineWidth = 0.6; ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    /* ══════════════════════════════════════════════
+       CURSOR GLOW
+    ══════════════════════════════════════════════ */
+    const glow = document.getElementById('cursor-glow');
+    document.addEventListener('mousemove', e => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top  = e.clientY + 'px';
+    });
+    </script>
+  </body>
+</html>

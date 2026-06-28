@@ -36,6 +36,8 @@ nav h4 {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  position: relative;
+  min-height: 440px;
 }
 
 .intro {
@@ -67,12 +69,17 @@ nav h4 {
 }
 .about img {
   position: absolute;
-  width: 500px;
-  height: 500px;
+  width: 300px;
+  height: 420px;
   z-index: 1;
-  left: 55%;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  right: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   border: none;
+  object-fit: cover;
+  object-position: 20% center;
+  border-radius: 8px;
   filter: grayscale(100%) brightness(90%) contrast(110%);
 }
 
@@ -85,39 +92,14 @@ nav h4 {
   line-height: 25px;
 }
 
-.oval-rings {
+#hero-canvas {
   position: absolute;
-  top: 170px;
-  left: -320px;
-
-  width: 400px; /* VERY wide */
-  height: 280px; /* short height */
-
-  border-radius: 50%;
-  transform: scaleX(2.5); /* strong horizontal stretch */
-
-  box-shadow:
-    0 0 0 10px rgba(255, 255, 255, 0.18),
-    0 0 0 20px rgba(255, 255, 255, 0.15),
-    0 0 0 30px rgba(255, 255, 255, 0.13),
-    0 0 0 40px rgba(255, 255, 255, 0.11),
-    0 0 0 50px rgba(255, 255, 255, 0.09),
-    0 0 0 70px rgba(255, 255, 255, 0.07),
-    0 0 0 84px rgba(255, 255, 255, 0.06);
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
   pointer-events: none;
-}
-
-@keyframes drift {
-  from {
-    transform: scaleX(1.8) translateX(20px);
-  }
-  to {
-    transform: scaleX(2.2) translateX(40px);
-  }
-}
-
-.oval-rings {
-  animation: drift 10s ease-in-out infinite alternate;
+  z-index: 0;
 }
 
 #line {
@@ -329,7 +311,7 @@ td {
     font-size: 0.9rem;
   }
 
-  .oval-rings {
+  #hero-canvas {
     display: none;
   }
 
@@ -508,5 +490,405 @@ td {
   #footer-a-div img {
     width: 25px;
     height: 25px;
+  }
+}
+
+/* ─── Custom Scrollbar ─────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #1a1a1a; }
+::-webkit-scrollbar-thumb { background: #00d4aa; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #00b894; }
+
+/* ─── Glassmorphism Sticky Nav ─────────────────────── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(21, 21, 21, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(0, 212, 170, 0.12);
+  transition: background 0.3s ease;
+}
+
+/* ─── Gradient Projects Heading ────────────────────── */
+#projects {
+  background: linear-gradient(120deg, #00d4aa 0%, #ffffff 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Skill Badge Hover ────────────────────────────── */
+.table td {
+  border: 1px solid rgba(0, 212, 170, 0.18);
+  border-radius: 14px;
+  background: rgba(0, 212, 170, 0.05);
+  transition: transform 0.25s ease, background 0.25s ease,
+              box-shadow 0.25s ease, border-color 0.25s ease;
+  cursor: default;
+}
+.table td:hover {
+  transform: translateY(-5px);
+  background: rgba(0, 212, 170, 0.15);
+  border-color: rgba(0, 212, 170, 0.55);
+  box-shadow: 0 8px 24px rgba(0, 212, 170, 0.2);
+  color: #00d4aa;
+}
+
+/* ─── Core Java – clickable badge indicator ─────────── */
+#skill-core-java {
+  position: relative;
+}
+#skill-core-java::after {
+  content: ' ↗';
+  font-size: 0.7em;
+  opacity: 0;
+  color: #00d4aa;
+  transition: opacity 0.2s ease;
+}
+#skill-core-java:hover::after {
+  opacity: 1;
+}
+#skill-core-java:hover {
+  box-shadow: 0 8px 28px rgba(0, 212, 170, 0.35), 0 0 0 2px rgba(0,212,170,0.3);
+}
+
+/* ─── SpringBoot – clickable badge indicator ──────────── */
+#skill-springboot {
+  position: relative;
+}
+#skill-springboot::after {
+  content: ' ↗';
+  font-size: 0.7em;
+  opacity: 0;
+  color: #00d4aa;
+  transition: opacity 0.2s ease;
+}
+#skill-springboot:hover::after {
+  opacity: 1;
+}
+#skill-springboot:hover {
+  box-shadow: 0 8px 28px rgba(0, 212, 170, 0.35), 0 0 0 2px rgba(0, 212, 170, 0.3) !important;
+}
+
+
+/* ─── Project Card Hover ───────────────────────────── */
+#table-projects td {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4%;
+}
+#table-projects img {
+  transition: transform 0.35s ease;
+  display: block;
+}
+#table-projects td:hover img {
+  transform: scale(1.04);
+}
+#table-projects td::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 212, 170, 0.12);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: 4%;
+}
+#table-projects td:hover::after {
+  opacity: 1;
+}
+
+/* ─── SAAS Image Size Constraint ───────────────────── */
+.saas-row {
+  padding-left: 5% !important;
+  padding-right: 5% !important;
+}
+.saas-row img {
+  width: auto !important;
+  max-width: 44% !important;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ─── Scroll Reveal ────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Cursor Glow ──────────────────────────────────── */
+#cursor-glow {
+  position: fixed;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 212, 170, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: left 0.08s ease, top 0.08s ease;
+}
+
+/* ─── Typewriter cursor blink ──────────────────────── */
+.blink {
+  color: #00d4aa;
+  font-weight: 300;
+  animation: blink-anim 0.9s step-end infinite;
+}
+@keyframes blink-anim {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ─── Footer Enhancements ──────────────────────────── */
+
+/* Teal accent bar at top of footer */
+.footer-accent-bar {
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #00d4aa, transparent);
+  margin-bottom: 10px;
+}
+
+/* Gradient CONTACT heading */
+.footer-table h1 {
+  background: linear-gradient(120deg, #00d4aa 0%, #ffffff 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Teal labels */
+.contact-field label {
+  color: #00d4aa !important;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Teal HR dividers */
+.contact-field hr {
+  border: none;
+  border-top: 1px solid rgba(0, 212, 170, 0.35);
+  margin-top: 4px;
+}
+
+/* Contact value hover highlight */
+.contact-value {
+  transition: color 0.2s ease;
+}
+.contact-field:hover .contact-value {
+  color: #00d4aa;
+}
+
+/* Footer social icon hover */
+#footer-a-div a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 4px;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+#footer-a-div a:hover {
+  transform: translateY(-4px) scale(1.15);
+  filter: drop-shadow(0 4px 10px rgba(0, 212, 170, 0.5));
+}
+
+
+/* ════════════════════════════════════════════════════
+   RESPONSIVE OVERRIDES  (must stay at end of file)
+   ════════════════════════════════════════════════════ */
+
+/* ── Tablet  (≤ 900px) ─────────────────────────────── */
+@media (max-width: 900px) {
+
+  /* Hero: stack vertically */
+  .about {
+    flex-direction: column !important;
+    align-items: center !important;
+    min-height: auto !important;
+    padding: 30px 16px 40px;
+    gap: 24px;
+  }
+
+  /* Pull image back into document flow */
+  .about img {
+    position: relative !important;
+    right: auto !important;
+    top: auto !important;
+    transform: none !important;
+    width: 260px !important;
+    height: 340px !important;
+    margin: 0 auto;
+    display: block;
+  }
+
+  /* Center intro text */
+  .intro {
+    height: auto !important;
+    align-items: center !important;
+    text-align: center;
+    padding: 0 16px;
+  }
+
+  #hero {
+    margin-top: 20px !important;
+    text-align: center;
+  }
+
+  .intro h1 {
+    font-size: 2rem !important;
+    text-align: center;
+  }
+
+  #hero-text {
+    text-align: center !important;
+    font-size: 0.95rem;
+  }
+
+  /* Download button back in flow */
+  .download-button-container {
+    position: static !important;
+    right: auto !important;
+    top: auto !important;
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  /* Hide particle canvas on tablet */
+  #hero-canvas { display: none !important; }
+
+  /* Nav */
+  nav h4 {
+    margin-left: 16px;
+    font-size: 1.6rem;
+  }
+
+  /* Footer bottom bar */
+  #footer-div {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  #footer-name-div {
+    margin-left: 0;
+    justify-content: center;
+  }
+  #footer-a-div {
+    margin-left: 0;
+  }
+}
+
+/* ── Mobile  (≤ 600px) ─────────────────────────────── */
+@media (max-width: 600px) {
+
+  /* Nav stacks */
+  nav {
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 0;
+  }
+  nav h4 {
+    margin-left: 0;
+    font-size: 1.3rem;
+    text-align: center;
+  }
+  .nav-link img {
+    width: 38px;
+    height: 38px;
+    margin-right: 10px;
+  }
+  #nav { margin-right: 0; }
+
+  /* Smaller profile image */
+  .about img {
+    width: 200px !important;
+    height: 260px !important;
+  }
+
+  .intro h1 {
+    font-size: 1.5rem !important;
+    line-height: 1.2;
+  }
+
+  #hero-text {
+    font-size: 0.85rem !important;
+    line-height: 20px !important;
+  }
+
+  /* Skills table */
+  .table td {
+    font-size: 16px !important;
+    padding: 10px 8px !important;
+  }
+
+  /* Projects heading */
+  #projects {
+    font-size: 2rem !important;
+    margin-left: 5% !important;
+    text-align: center;
+  }
+
+  /* Project images full-width */
+  #table-projects img {
+    width: 100% !important;
+  }
+  #table-projects {
+    margin-top: 30px !important;
+  }
+
+  /* SAAS image on mobile */
+  .saas-row img {
+    width: 90% !important;
+    max-width: 100% !important;
+  }
+
+  /* Footer contact table */
+  .footer-table {
+    display: block;
+  }
+  .footer-table tr,
+  .footer-table td {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+  .footer-table td[style] {
+    display: block !important;
+    justify-content: center;
+  }
+  .contact-info {
+    padding: 0 20px;
+  }
+  .footer-table h1 {
+    font-size: 2rem !important;
+  }
+  .footer-table p {
+    font-size: 0.9rem !important;
+  }
+
+  /* Footer bottom */
+  #footer-name {
+    font-size: 1rem !important;
+    margin: 0 8px;
+  }
+  #footer-a-div img {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  /* Dividers */
+  #line, #footer-line {
+    width: 85%;
+    margin-left: 7.5%;
   }
 }

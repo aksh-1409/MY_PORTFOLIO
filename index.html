@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div id="cursor-glow"></div>
     <div id="container">
       <nav>
         <h4>Aksh Usrathe</h4>
@@ -28,7 +29,7 @@
         </div>
       </nav>
       <div class="about">
-        <div class="oval-rings"></div>
+        <canvas id="hero-canvas"></canvas>
         <div class="intro">
           <div id="hero">
             <h1>Nice to meet you!</h1>
@@ -43,7 +44,7 @@
         </div>
         <img src="profile.jpg" alt="profile pic" />
         <div class="download-button-container" style="position: absolute; right: 15%; top: 420px; z-index: 3;">
-          <a href="Aksh_Usrathe_Resume.pdf" download="Aksh_Usrathe_Resume.pdf">
+          <a href="Aksh_usrathe(1).pdf" download="Aksh_usrathe(1).pdf">
             <button style="padding: 12px 24px; background: linear-gradient(135deg, #00d4aa, #00b894); color: white; border: none; border-radius: 8px; cursor: pointer; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 16px; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 212, 170, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 212, 170, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0, 212, 170, 0.3)'">
               Download Resume
             </button>
@@ -52,10 +53,10 @@
       </div>
       <hr id="line" />
 
-      <table class="table">
+      <table class="table reveal">
         <tr align="center">
-          <td>Core Java</td>
-          <td>SpringBoot</td>
+          <td id="skill-core-java" style="cursor:pointer;" onclick="window.location.href='core-java.html'">Core Java</td>
+          <td id="skill-springboot" style="cursor:pointer;" onclick="window.location.href='springboot.html'">SpringBoot</td>
           <td>Javascript</td>
         </tr>
         <tr align="center">
@@ -70,10 +71,10 @@
         </tr>
       </table>
 
-      <h1 id="projects">Projects</h1>
+      <h1 id="projects" class="reveal">Projects</h1>
 
       <div>
-        <table id="table-projects" align="center">
+        <table id="table-projects" align="center" class="reveal">
           <tr>
             <td align="center">
               <img src="image.png" alt="" /> <br /><span class="span-1"
@@ -83,18 +84,18 @@
               >
             </td>
             <td align="center">
-              <img src="clone.png" alt="" /> <br /><span class="span-1"
-                >NETFLIX CLONE<br /><span class="span-2">HTML CSS</span></span
+              <img src="darshan_ease.png" alt="" /> <br /><span class="span-1"
+                >DARSHAN EASE<br /><span class="span-2">Node.js, Express, MongoDB, React, Tailwind CSS</span></span
               >
             </td>
           </tr>
           <tr>
             <td
               align="center"
-              style="padding-left: 25%; padding-right: 25%"
+              class="saas-row"
               colspan="2"
             >
-              <img src="dashboard.png" width="2%" height="2%" alt="" />
+              <img src="saas_combined.png" alt="" style="width: 42%; max-width: 480px; height: auto; display: inline-block;" />
               <br /><span class="span-1"
                 >SAAS RECLAMATION DASHBOARD<br />
               </span>
@@ -102,7 +103,8 @@
           </tr>
         </table>
       </div>
-      <footer id="footer">
+      <footer id="footer" class="reveal">
+        <div class="footer-accent-bar"></div>
         <table align="center" class="footer-table">
           <tr>
             <td align="center">
@@ -177,5 +179,120 @@ If you have an idea, a problem to solve, or a role to discuss—let’s connect 
         </div>
       </footer>
     </div>
+  <script>
+    (function () {
+      const canvas = document.getElementById('hero-canvas');
+      const ctx = canvas.getContext('2d');
+
+      function resize() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      const COUNT = 55;
+      const MAX_DIST = 130;
+      const COLOR = '0, 212, 170';
+
+      const particles = Array.from({ length: COUNT }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 2 + 1
+      }));
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${COLOR}, 0.85)`;
+          ctx.shadowColor = `rgba(${COLOR}, 0.6)`;
+          ctx.shadowBlur = 6;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const dx = p.x - p2.x;
+            const dy = p.y - p2.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < MAX_DIST) {
+              const alpha = (1 - dist / MAX_DIST) * 0.45;
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.strokeStyle = `rgba(${COLOR}, ${alpha})`;
+              ctx.lineWidth = 0.6;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+  </script>
+  <script>
+    /* ── Cursor Glow ── */
+    const glow = document.getElementById('cursor-glow');
+    document.addEventListener('mousemove', (e) => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top  = e.clientY + 'px';
+    });
+
+    /* ── Scroll Reveal ── */
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    /* ── Typewriter Effect (looping) ── */
+    const heroTextEl = document.getElementById('hero-text');
+    const phrases = [
+      "I'm a Java Developer passionate on building applications involving SpringBoot Framework",
+      "Building scalable backend solutions with Spring Boot & MySQL.",
+      "Crafting clean, efficient APIs and robust server-side logic.",
+      "Open source enthusiast. Problem solver. Continuous learner."
+    ];
+    heroTextEl.innerHTML = '<span id="typed"></span><span class="blink">|</span>';
+    const typedEl = document.getElementById('typed');
+    let phraseIdx = 0, charIdx = 0, deleting = false;
+
+    function typeLoop() {
+      const current = phrases[phraseIdx];
+      if (!deleting) {
+        typedEl.textContent = current.slice(0, ++charIdx);
+        if (charIdx === current.length) {
+          deleting = true;
+          return setTimeout(typeLoop, 1500);
+        }
+        setTimeout(typeLoop, 44);
+      } else {
+        typedEl.textContent = current.slice(0, --charIdx);
+        if (charIdx === 0) {
+          deleting = false;
+          phraseIdx = (phraseIdx + 1) % phrases.length;
+          return setTimeout(typeLoop, 450);
+        }
+        setTimeout(typeLoop, 20);
+      }
+    }
+    setTimeout(typeLoop, 700);
+  </script>
   </body>
 </html>
