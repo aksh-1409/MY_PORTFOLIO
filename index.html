@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Single Page Portfolio</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=2" />
   </head>
   <body>
     <div id="cursor-glow"></div>
@@ -90,36 +90,103 @@
 
       <h1 id="projects" class="reveal">Projects</h1>
 
-      <div>
-        <table id="table-projects" align="center" class="reveal">
-          <tr>
-            <td align="center">
-              <img src="image.png" alt="" /> <br /><span class="span-1"
-                >BANKING APPLICATION<br /><span class="span-2"
-                  >HTML CSS JS JAVA MySQL</span
-                ></span
-              >
-            </td>
-            <td align="center">
-              <img src="darshan_ease.png" alt="" /> <br /><span class="span-1"
-                >DARSHAN EASE<br /><span class="span-2">Node.js, Express, MongoDB, React, Tailwind CSS</span></span
-              >
-            </td>
-          </tr>
-          <tr>
-            <td
-              align="center"
-              class="saas-row"
-              colspan="2"
-            >
-              <img src="saas_combined.png" alt="" style="width: 42%; max-width: 480px; height: auto; display: inline-block;" />
-              <br /><span class="span-1"
-                >SAAS RECLAMATION DASHBOARD<br />
-              </span>
-            </td>
-          </tr>
-        </table>
+      <div class="project-grid">
+        <article class="project-card" data-index="0" tabindex="0" aria-label="Multi-warehouse Inventory Management - click for details">
+          <div class="project-card-media">
+            <img src="inventory1.png" alt="Multi-warehouse Inventory Management screenshot" />
+            <span class="card-zoom-hint">View Details 🔍</span>
+          </div>
+          <div class="project-card-body">
+            <h3 class="project-card-title">MULTI-WAREHOUSE INVENTORY MANAGEMENT</h3>
+            <div class="project-card-tags">
+              <span class="project-tag">Next.js</span>
+              <span class="project-tag">PostgreSQL</span>
+              <span class="project-tag">Prisma</span>
+              <span class="project-tag">TypeScript</span>
+            </div>
+            <p class="project-card-desc">
+              Multi-warehouse stock management with RBAC, transfers, webhooks, and audit logging — including a granular REST API with 9 scopes.
+            </p>
+            <a href="#" class="project-card-github" data-github-link aria-label="GitHub repository (placeholder)">
+              <img src="github.png" alt="" width="18" height="18" /> View on GitHub
+            </a>
+          </div>
+        </article>
+
+        <article class="project-card" data-index="1" tabindex="0" aria-label="Darshan Ease - click for details">
+          <div class="project-card-media">
+            <img src="darshan_ease.png" alt="Darshan Ease screenshot" />
+            <span class="card-zoom-hint">View Details 🔍</span>
+          </div>
+          <div class="project-card-body">
+            <h3 class="project-card-title">DARSHAN EASE</h3>
+            <div class="project-card-tags">
+              <span class="project-tag">React</span>
+              <span class="project-tag">Node.js</span>
+              <span class="project-tag">MongoDB</span>
+            </div>
+            <p class="project-card-desc">
+              A full-stack temple darshan ticket booking platform with user, organizer, and admin roles.
+            </p>
+            <a href="#" class="project-card-github" data-github-link aria-label="GitHub repository (placeholder)">
+              <img src="github.png" alt="" width="18" height="18" /> View on GitHub
+            </a>
+          </div>
+        </article>
+
+        <article class="project-card" data-index="2" tabindex="0" aria-label="SAAS Reclamation Dashboard - click for details">
+          <div class="project-card-media">
+            <img src="saas_combined.png" alt="SAAS Reclamation Dashboard screenshot" />
+            <span class="card-zoom-hint">View Details 🔍</span>
+          </div>
+          <div class="project-card-body">
+            <h3 class="project-card-title">SAAS RECLAMATION DASHBOARD</h3>
+            <div class="project-card-tags">
+              <span class="project-tag">Spring Boot</span>
+              <span class="project-tag">HRIS</span>
+              <span class="project-tag">Vendor APIs</span>
+            </div>
+            <p class="project-card-desc">
+              Automated SaaS license management that detects zombie licenses by cross-referencing HRIS and vendor data, then manages the reclamation lifecycle with email verification and cost-savings tracking.
+            </p>
+            <a href="#" class="project-card-github" data-github-link aria-label="GitHub repository (placeholder)">
+              <img src="github.png" alt="" width="18" height="18" /> View on GitHub
+            </a>
+          </div>
+        </article>
       </div>
+
+      <div class="view-more-wrap">
+        <a href="projects.html" class="view-more-btn">View More Projects →</a>
+      </div>
+
+      <!-- ════════════════════════════════════════════
+           PROJECT MODAL
+           ════════════════════════════════════════════ -->
+      <div id="project-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-backdrop" data-close-modal></div>
+        <div class="modal-content" role="document">
+          <button class="modal-close" data-close-modal aria-label="Close">&times;</button>
+
+          <div class="modal-media">
+            <div class="modal-carousel" id="modal-carousel"></div>
+            <button class="carousel-btn carousel-prev" id="carousel-prev" aria-label="Previous image">&#10094;</button>
+            <button class="carousel-btn carousel-next" id="carousel-next" aria-label="Next image">&#10095;</button>
+            <div class="carousel-dots" id="carousel-dots"></div>
+          </div>
+
+          <div class="modal-body">
+            <h3 id="modal-title"></h3>
+            <div class="modal-tags" id="modal-tags"></div>
+            <p class="modal-desc" id="modal-desc"></p>
+            <div class="modal-features" id="modal-features"></div>
+            <a id="modal-github" class="modal-github" href="#" target="_blank" rel="noopener noreferrer">
+              <img src="github.png" alt="" width="20" height="20" /> View Source on GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
       <footer id="footer" class="reveal">
         <div class="footer-accent-bar"></div>
         <table align="center" class="footer-table">
@@ -310,6 +377,175 @@ If you have an idea, a problem to solve, or a role to discuss—let’s connect 
       }
     }
     setTimeout(typeLoop, 700);
+  </script>
+  <script>
+    /* ════════════════════════════════════════════
+       PROJECT MODAL + CAROUSEL
+       ════════════════════════════════════════════ */
+
+    /* ── Project data ──
+       Note: github links are placeholders ('#'). Replace with real repo URLs
+       when available. To add more screenshots, add entries to `images`. */
+    const projectData = [
+      {
+        title: 'Multi-Warehouse Inventory Management',
+        tags: ['Next.js 14', 'PostgreSQL', 'Prisma', 'NextAuth.js', 'TypeScript', 'Vercel + Neon'],
+        description: 'A full-stack platform for multi-warehouse stock tracking with transfer workflows, secured end-to-end. Role-based access control separates Admin / Operator users with warehouse-scoped permissions. API access is protected by API key authentication across 9 granular scopes, and inventory events are pushed via webhooks with HMAC-SHA256 verification.',
+        features: [
+          'RBAC — Admin/Operator with warehouse-scoped permissions',
+          'Multi-warehouse stock tracking & transfer workflows',
+          'API key auth with 9 granular scopes',
+          'Webhooks with HMAC-SHA256 verification',
+          'Idempotent endpoints',
+          'WCAG 2.1 AA accessibility',
+          'CSRF protection & rate limiting',
+          'PDF reports & CSV/PDF export',
+          'Audit logging & CI/CD'
+        ],
+        github: '#',
+        images: ['inventory1.png', 'inventory2.png']
+      },
+      {
+        title: 'Darshan Ease',
+        tags: ['React', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS'],
+        description: 'A full-stack temple darshan ticket booking platform with user, organizer, and admin roles, built using React and Node.js with MongoDB.',
+        features: [
+          'User, organizer & admin roles',
+          'Ticket booking & queue management',
+          'Role-based dashboards'
+        ],
+        github: '#',
+        images: ['darshan_ease.png']
+      },
+      {
+        title: 'SAAS Reclamation Dashboard',
+        tags: ['Spring Boot', 'HRIS', 'Vendor APIs'],
+        description: 'An automated SaaS license management system built with Spring Boot that detects zombie licenses from terminated employees and low-usage premium subscriptions by cross-referencing HRIS and vendor data. It manages the full reclamation lifecycle through email verification, admin accountability, and cost-savings tracking.',
+        features: [
+          'Detects zombie licenses via HRIS + vendor cross-reference',
+          'Full reclamation lifecycle with email verification',
+          'Admin accountability & cost-savings tracking'
+        ],
+        github: '#',
+        images: ['saas_combined.png']
+      }
+    ];
+
+    const modal = document.getElementById('project-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalTags = document.getElementById('modal-tags');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalFeatures = document.getElementById('modal-features');
+    const modalGithub = document.getElementById('modal-github');
+    const carouselEl = document.getElementById('modal-carousel');
+    const dotsEl = document.getElementById('carousel-dots');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+
+    let slideIndex = 0;
+    let currentImages = [];
+
+    function renderCarousel(images) {
+      currentImages = images;
+      slideIndex = 0;
+      carouselEl.innerHTML = '';
+      dotsEl.innerHTML = '';
+      const track = document.createElement('div');
+      track.style.cssText = 'display:flex;width:100%;';
+      images.forEach((src) => {
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = 'Project screenshot';
+        img.loading = 'lazy';
+        slide.appendChild(img);
+        track.appendChild(slide);
+      });
+      carouselEl.appendChild(track);
+      if (images.length > 1) {
+        images.forEach((_, i) => {
+          const dot = document.createElement('button');
+          dot.className = 'dot' + (i === 0 ? ' active' : '');
+          dot.setAttribute('aria-label', 'Image ' + (i + 1));
+          dot.addEventListener('click', () => goToSlide(i));
+          dotsEl.appendChild(dot);
+        });
+        prevBtn.style.display = 'flex';
+        nextBtn.style.display = 'flex';
+        dotsEl.style.display = 'flex';
+      } else {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+        dotsEl.style.display = 'none';
+      }
+      updateSlide();
+    }
+
+    function updateSlide() {
+      const slides = carouselEl.querySelectorAll('.carousel-slide');
+      slides.forEach((s, i) => {
+        s.style.transform = 'translateX(' + (i - slideIndex) * 100 + '%)';
+      });
+      const dots = dotsEl.querySelectorAll('.dot');
+      dots.forEach((d, i) => d.classList.toggle('active', i === slideIndex));
+    }
+
+    function goToSlide(i) {
+      slideIndex = (i + currentImages.length) % currentImages.length;
+      updateSlide();
+    }
+
+    function openModal(index) {
+      const p = projectData[index];
+      if (!p) return;
+      renderCarousel(p.images);
+      modalTitle.textContent = p.title;
+      modalTags.innerHTML = p.tags.map(t => '<span class="modal-tag">' + t + '</span>').join('');
+      modalDesc.textContent = p.description;
+      modalFeatures.innerHTML = p.features.map(f => '<div class="modal-feature">' + f + '</div>').join('');
+      modalGithub.href = p.github;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      const activeImg = modal.querySelector('.carousel-slide img');
+      if (activeImg) activeImg.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    }
+
+    prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goToSlide(slideIndex - 1); });
+    nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goToSlide(slideIndex + 1); });
+
+    document.querySelectorAll('[data-close-modal]').forEach(el => el.addEventListener('click', closeModal));
+
+    document.querySelectorAll('.project-card').forEach(card => {
+      const idx = parseInt(card.dataset.index, 10);
+      const ghLink = card.querySelector('.project-card-github');
+      if (ghLink && projectData[idx]) ghLink.href = projectData[idx].github;
+      const openCard = () => openModal(idx);
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.project-card-github')) return;
+        openCard();
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openCard();
+        }
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!modal.classList.contains('open')) return;
+      if (e.key === 'Escape') closeModal();
+      if (e.key === 'ArrowLeft') goToSlide(slideIndex - 1);
+      if (e.key === 'ArrowRight') goToSlide(slideIndex + 1);
+    });
   </script>
   </body>
 </html>

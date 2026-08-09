@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Projects – Aksh Usrathe</title>
+    <meta name="description" content="All projects built by Aksh Usrathe – Java & Full-Stack Developer." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=2" />
+    <style>
+      /* ── Page-specific overrides ── */
+      body { font-family: 'Inter', 'Gill Sans', sans-serif; }
+
+      /* ── Back link ── */
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #00d4aa;
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        margin: 28px 0 0 10%;
+        transition: gap 0.2s ease, opacity 0.2s ease;
+      }
+      .back-link:hover { gap: 14px; opacity: 0.85; }
+      .back-link .arrow { font-size: 1.15rem; }
+
+      /* ── Hero banner ── */
+      .pr-hero {
+        position: relative;
+        overflow: hidden;
+        padding: 64px 10% 52px;
+        text-align: center;
+      }
+      .pr-hero canvas {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .pr-hero-content { position: relative; z-index: 2; }
+      .pr-badge {
+        display: inline-block;
+        background: rgba(0,212,170,0.12);
+        border: 1px solid rgba(0,212,170,0.4);
+        color: #00d4aa;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 5px 16px;
+        border-radius: 999px;
+        margin-bottom: 18px;
+      }
+      .pr-hero h1 {
+        font-size: clamp(1.8rem, 4.5vw, 3rem);
+        font-weight: 800;
+        color: #fff;
+        line-height: 1.15;
+        margin-bottom: 12px;
+      }
+      .pr-hero h1 span { color: #00d4aa; }
+      .pr-hero p {
+        color: rgba(255,255,255,0.6);
+        font-size: 0.95rem;
+        max-width: 560px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+      .pr-stats {
+        display: flex;
+        justify-content: center;
+        gap: 48px;
+        margin-top: 36px;
+        flex-wrap: wrap;
+      }
+      .pr-stat { text-align: center; }
+      .pr-stat .num {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #00d4aa;
+        display: block;
+      }
+      .pr-stat .lbl {
+        font-size: 0.75rem;
+        color: rgba(255,255,255,0.45);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      /* ── Divider ── */
+      .section-divider {
+        display: block;
+        width: 70%;
+        margin: 0 auto 48px;
+        border: none;
+        border-top: 1px solid rgba(0,212,170,0.18);
+      }
+
+      .pr-section { padding: 0 4% 72px; }
+
+      /* ── Responsive ── */
+      @media (max-width: 600px) {
+        .pr-hero { padding: 40px 5% 36px; }
+        .back-link { margin-left: 5%; }
+        .pr-section { padding: 0 4% 56px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cursor-glow"></div>
+
+    <!-- ── Nav (reuse portfolio nav) ── -->
+    <nav>
+      <h4>Aksh Usrathe</h4>
+      <div id="nav">
+        <a class="nav-link" href="https://github.com/aksh-1409"><img style="background-color:aqua;border-radius:10px" src="github.png" alt="GitHub" /></a>
+        <a class="nav-link" href="https://leetcode.com/u/aksh_usrathe1401/"><img src="leetcode.png" alt="LeetCode" /></a>
+        <a class="nav-link" href="https://www.linkedin.com/in/aksh-usrathe-02462930b/"><img src="linkedin.png" alt="LinkedIn" /></a>
+      </div>
+    </nav>
+
+    <!-- ── Back link ── -->
+    <a class="back-link" href="index.html" id="back-btn">
+      <span class="arrow">←</span> Back to Portfolio
+    </a>
+
+    <!-- ── Hero ── -->
+    <section class="pr-hero">
+      <canvas id="pr-canvas"></canvas>
+      <div class="pr-hero-content">
+        <div class="pr-badge">My Work</div>
+        <h1>All <span>Projects</span></h1>
+        <p>Click any project card for screenshots and full details.</p>
+        <div class="pr-stats">
+          <div class="pr-stat"><span class="num" id="stat-projects">0</span><span class="lbl">Projects</span></div>
+          <div class="pr-stat"><span class="num" id="stat-stacks">0</span><span class="lbl">Tech Stacks</span></div>
+          <div class="pr-stat"><span class="num" id="stat-apis">0</span><span class="lbl">API Scopes</span></div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ── Projects (compact cards) ── -->
+    <section class="pr-section">
+      <div class="project-grid">
+        <article class="project-card" data-index="0" tabindex="0" aria-label="Multi-warehouse Inventory Management - click for details">
+          <div class="project-card-media">
+            <img src="inventory1.png" alt="Multi-warehouse Inventory Management screenshot" />
+            <span class="card-zoom-hint">View Details 🔍</span>
+          </div>
+          <div class="project-card-body">
+            <h3 class="project-card-title">MULTI-WAREHOUSE INVENTORY MANAGEMENT</h3>
+            <div class="project-card-tags">
+              <span class="project-tag">Next.js</span>
+              <span class="project-tag">PostgreSQL</span>
+              <span class="project-tag">Prisma</span>
+              <span class="project-tag">TypeScript</span>
+            </div>
+            <p class="project-card-desc">
+              Multi-warehouse stock management with RBAC, transfers, webhooks, and audit logging — including a granular REST API with 9 scopes.
+            </p>
+            <a href="#" class="project-card-github" data-github-link aria-label="GitHub repository (placeholder)">
+              <img src="github.png" alt="" width="18" height="18" /> View on GitHub
+            </a>
+          </div>
+        </article>
+
+        <article class="project-card" data-index="1" tabindex="0" aria-label="Banking Application - click for details">
+          <div class="project-card-media">
+            <img src="image.png" alt="Banking Application screenshot" />
+            <span class="card-zoom-hint">View Details 🔍</span>
+          </div>
+          <div class="project-card-body">
+            <h3 class="project-card-title">BANKING APPLICATION</h3>
+            <div class="project-card-tags">
+              <span class="project-tag">HTML</span>
+              <span class="project-tag">CSS</span>
+              <span class="project-tag">JavaScript</span>
+              <span class="project-tag">Java</span>
+              <span class="project-tag">MySQL</span>
+            </div>
+            <p class="project-card-desc">
+              A classic banking application built with a Java backend and MySQL persistence, driven by a clean HTML / CSS / JavaScript frontend.
+            </p>
+            <a href="#" class="project-card-github" data-github-link aria-label="GitHub repository (placeholder)">
+              <img src="github.png" alt="" width="18" height="18" /> View on GitHub
+            </a>
+          </div>
+        </article>
+
+        <article class="project-card" data-index="2" tabindex="0" aria-label="Darshan Ease - click for details">
+          <div class="project-card-media">
+            <img src="darshan_ease.png" alt="Darshan Ease screenshot" />
+            <span class="card-zoom-hint">View Details 🔍</span>
+          </div>
+          <div class="project-card-body">
+            <h3 class="project-card-title">DARSHAN EASE</h3>
+            <div class="project-card-tags">
+              <span class="project-tag">React</span>
+              <span class="project-tag">Node.js</span>
+              <span class="project-tag">MongoDB</span>
+            </div>
+            <p class="project-card-desc">
+              A full-stack temple darshan ticket booking platform with user, organizer, and admin roles.
+            </p>
+            <a href="#" class="project-card-github" data-github-link aria-label="GitHub repository (placeholder)">
+              <img src="github.png" alt="" width="18" height="18" /> View on GitHub
+            </a>
+          </div>
+        </article>
+
+        <article class="project-card" data-index="3" tabindex="0" aria-label="SAAS Reclamation Dashboard - click for details">
+          <div class="project-card-media">
+            <img src="saas_combined.png" alt="SAAS Reclamation Dashboard screenshot" />
+            <span class="card-zoom-hint">View Details 🔍</span>
+          </div>
+          <div class="project-card-body">
+            <h3 class="project-card-title">SAAS RECLAMATION DASHBOARD</h3>
+            <div class="project-card-tags">
+              <span class="project-tag">Spring Boot</span>
+              <span class="project-tag">HRIS</span>
+              <span class="project-tag">Vendor APIs</span>
+            </div>
+            <p class="project-card-desc">
+              Automated SaaS license management that detects zombie licenses by cross-referencing HRIS and vendor data, then manages the reclamation lifecycle with email verification and cost-savings tracking.
+            </p>
+            <a href="#" class="project-card-github" data-github-link aria-label="GitHub repository (placeholder)">
+              <img src="github.png" alt="" width="18" height="18" /> View on GitHub
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         PROJECT MODAL
+         ════════════════════════════════════════════ -->
+    <div id="project-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-backdrop" data-close-modal></div>
+      <div class="modal-content" role="document">
+        <button class="modal-close" data-close-modal aria-label="Close">&times;</button>
+
+        <div class="modal-media">
+          <div class="modal-carousel" id="modal-carousel"></div>
+          <button class="carousel-btn carousel-prev" id="carousel-prev" aria-label="Previous image">&#10094;</button>
+          <button class="carousel-btn carousel-next" id="carousel-next" aria-label="Next image">&#10095;</button>
+          <div class="carousel-dots" id="carousel-dots"></div>
+        </div>
+
+        <div class="modal-body">
+          <h3 id="modal-title"></h3>
+          <div class="modal-tags" id="modal-tags"></div>
+          <p class="modal-desc" id="modal-desc"></p>
+          <div class="modal-features" id="modal-features"></div>
+          <a id="modal-github" class="modal-github" href="#" target="_blank" rel="noopener noreferrer">
+            <img src="github.png" alt="" width="20" height="20" /> View Source on GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Footer strip ── -->
+    <footer id="footer" style="padding-bottom:32px;">
+      <div class="footer-accent-bar"></div>
+      <hr id="footer-line" />
+      <div id="footer-div">
+        <div id="footer-name-div">
+          <h2 id="footer-name">Aksh</h2>
+          <h2 id="footer-name" style="margin-left:12px;">9399765924</h2>
+        </div>
+        <div id="footer-a-div">
+          <a href="https://github.com/aksh-1409"><img src="github.png" width="35px" height="35px" alt="GitHub" /></a>
+          <a href="https://leetcode.com/u/aksh_usrathe1401/"><img src="leetcode.png" width="35px" height="35px" alt="LeetCode" /></a>
+          <a href="https://www.linkedin.com/in/aksh-usrathe-02462930b/"><img src="linkedin.png" width="35px" height="35px" alt="LinkedIn" /></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ════════════════════════════════════════════
+         SCRIPTS
+         ════════════════════════════════════════════ -->
+    <script>
+      /* ── Count-up animation ── */
+      function countUp(el, target, dur) {
+        const start = performance.now();
+        function step(now) {
+          const t = Math.min((now - start) / dur, 1);
+          el.textContent = Math.round(t * target);
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+      countUp(document.getElementById('stat-projects'), 4, 1000);
+      countUp(document.getElementById('stat-stacks'), 9, 1100);
+      countUp(document.getElementById('stat-apis'), 9, 1200);
+    </script>
+
+    <script>
+      /* ════════════════════════════════════════════
+         PROJECT MODAL + CAROUSEL
+         ════════════════════════════════════════════ */
+      /* Note: github links are placeholders ('#'). Replace with real repo URLs
+         when available. To add more screenshots, add entries to `images`. */
+      const projectData = [
+        {
+          title: 'Multi-Warehouse Inventory Management',
+          tags: ['Next.js 14', 'PostgreSQL', 'Prisma', 'NextAuth.js', 'TypeScript', 'Vercel + Neon'],
+          description: 'A full-stack platform for multi-warehouse stock tracking with transfer workflows, secured end-to-end. Role-based access control separates Admin / Operator users with warehouse-scoped permissions. API access is protected by API key authentication across 9 granular scopes, and inventory events are pushed via webhooks with HMAC-SHA256 verification.',
+          features: [
+            'RBAC — Admin/Operator with warehouse-scoped permissions',
+            'Multi-warehouse stock tracking & transfer workflows',
+            'API key auth with 9 granular scopes',
+            'Webhooks with HMAC-SHA256 verification',
+            'Idempotent endpoints',
+            'WCAG 2.1 AA accessibility',
+            'CSRF protection & rate limiting',
+            'PDF reports & CSV/PDF export',
+            'Audit logging & CI/CD'
+          ],
+          github: '#',
+          images: ['inventory1.png', 'inventory2.png']
+        },
+        {
+          title: 'Banking Application',
+          tags: ['HTML', 'CSS', 'JavaScript', 'Java', 'MySQL'],
+          description: 'A classic banking application built with a Java backend and MySQL persistence, driven by a clean HTML / CSS / JavaScript frontend.',
+          features: ['User accounts & transactions', 'MySQL persistence'],
+          github: '#',
+          images: ['image.png']
+        },
+        {
+          title: 'Darshan Ease',
+          tags: ['React', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS'],
+          description: 'A full-stack temple darshan ticket booking platform with user, organizer, and admin roles, built using React and Node.js with MongoDB.',
+          features: ['User, organizer & admin roles', 'Ticket booking & queue management'],
+          github: '#',
+          images: ['darshan_ease.png']
+        },
+        {
+          title: 'SAAS Reclamation Dashboard',
+          tags: ['Spring Boot', 'HRIS', 'Vendor APIs'],
+          description: 'An automated SaaS license management system built with Spring Boot that detects zombie licenses from terminated employees and low-usage premium subscriptions by cross-referencing HRIS and vendor data. It manages the full reclamation lifecycle through email verification, admin accountability, and cost-savings tracking.',
+          features: [
+            'Detects zombie licenses via HRIS + vendor cross-reference',
+            'Full reclamation lifecycle with email verification',
+            'Admin accountability & cost-savings tracking'
+          ],
+          github: '#',
+          images: ['saas_combined.png']
+        }
+      ];
+
+      const modal = document.getElementById('project-modal');
+      const modalTitle = document.getElementById('modal-title');
+      const modalTags = document.getElementById('modal-tags');
+      const modalDesc = document.getElementById('modal-desc');
+      const modalFeatures = document.getElementById('modal-features');
+      const modalGithub = document.getElementById('modal-github');
+      const carouselEl = document.getElementById('modal-carousel');
+      const dotsEl = document.getElementById('carousel-dots');
+      const prevBtn = document.getElementById('carousel-prev');
+      const nextBtn = document.getElementById('carousel-next');
+
+      let slideIndex = 0;
+      let currentImages = [];
+
+      function renderCarousel(images) {
+        currentImages = images;
+        slideIndex = 0;
+        carouselEl.innerHTML = '';
+        dotsEl.innerHTML = '';
+        const track = document.createElement('div');
+        track.style.cssText = 'display:flex;width:100%;';
+        images.forEach((src) => {
+          const slide = document.createElement('div');
+          slide.className = 'carousel-slide';
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = 'Project screenshot';
+          img.loading = 'lazy';
+          slide.appendChild(img);
+          track.appendChild(slide);
+        });
+        carouselEl.appendChild(track);
+        if (images.length > 1) {
+          images.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Image ' + (i + 1));
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsEl.appendChild(dot);
+          });
+          prevBtn.style.display = 'flex';
+          nextBtn.style.display = 'flex';
+          dotsEl.style.display = 'flex';
+        } else {
+          prevBtn.style.display = 'none';
+          nextBtn.style.display = 'none';
+          dotsEl.style.display = 'none';
+        }
+        updateSlide();
+      }
+
+      function updateSlide() {
+        const slides = carouselEl.querySelectorAll('.carousel-slide');
+        slides.forEach((s, i) => {
+          s.style.transform = 'translateX(' + (i - slideIndex) * 100 + '%)';
+        });
+        const dots = dotsEl.querySelectorAll('.dot');
+        dots.forEach((d, i) => d.classList.toggle('active', i === slideIndex));
+      }
+
+      function goToSlide(i) {
+        slideIndex = (i + currentImages.length) % currentImages.length;
+        updateSlide();
+      }
+
+      function openModal(index) {
+        const p = projectData[index];
+        if (!p) return;
+        renderCarousel(p.images);
+        modalTitle.textContent = p.title;
+        modalTags.innerHTML = p.tags.map(t => '<span class="modal-tag">' + t + '</span>').join('');
+        modalDesc.textContent = p.description;
+        modalFeatures.innerHTML = p.features.map(f => '<div class="modal-feature">' + f + '</div>').join('');
+        modalGithub.href = p.github;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+      }
+
+      function closeModal() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+      }
+
+      prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goToSlide(slideIndex - 1); });
+      nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goToSlide(slideIndex + 1); });
+
+      document.querySelectorAll('[data-close-modal]').forEach(el => el.addEventListener('click', closeModal));
+
+      document.querySelectorAll('.project-card').forEach(card => {
+        const idx = parseInt(card.dataset.index, 10);
+        const ghLink = card.querySelector('.project-card-github');
+        if (ghLink && projectData[idx]) ghLink.href = projectData[idx].github;
+        const openCard = () => openModal(idx);
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('.project-card-github')) return;
+          openCard();
+        });
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openCard();
+          }
+        });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('open')) return;
+        if (e.key === 'Escape') closeModal();
+        if (e.key === 'ArrowLeft') goToSlide(slideIndex - 1);
+        if (e.key === 'ArrowRight') goToSlide(slideIndex + 1);
+      });
+
+      /* ── Particle canvas (matches portfolio hero) ── */
+      (function() {
+        const canvas = document.getElementById('pr-canvas');
+        const ctx = canvas.getContext('2d');
+        function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+        window.addEventListener('resize', resize); resize();
+        const COUNT = 40, MAX_DIST = 120, COLOR = '0, 212, 170';
+        const particles = Array.from({ length: COUNT }, () => ({
+          x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+          vx: (Math.random()-0.5)*0.4, vy: (Math.random()-0.5)*0.4,
+          r: Math.random()*2+1
+        }));
+        function draw() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+            ctx.fillStyle = `rgba(${COLOR},0.8)`; ctx.shadowColor = `rgba(${COLOR},0.5)`;
+            ctx.shadowBlur = 6; ctx.fill(); ctx.shadowBlur = 0;
+            for (let j = i+1; j < particles.length; j++) {
+              const p2 = particles[j], dx = p.x-p2.x, dy = p.y-p2.y;
+              const dist = Math.sqrt(dx*dx+dy*dy);
+              if (dist < MAX_DIST) {
+                ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p2.x,p2.y);
+                ctx.strokeStyle = `rgba(${COLOR},${(1-dist/MAX_DIST)*0.4})`;
+                ctx.lineWidth = 0.6; ctx.stroke();
+              }
+            }
+          }
+          requestAnimationFrame(draw);
+        }
+        draw();
+      })();
+
+      /* ── Cursor glow ── */
+      const glow = document.getElementById('cursor-glow');
+      document.addEventListener('mousemove', e => {
+        glow.style.left = e.clientX + 'px';
+        glow.style.top  = e.clientY + 'px';
+      });
+    </script>
+  </body>
+</html>
