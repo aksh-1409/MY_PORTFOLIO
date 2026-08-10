@@ -641,7 +641,7 @@ nav {
 
 .project-card-desc {
   margin: 0;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: cursive;
   font-size: 0.86rem;
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.72);
@@ -1187,7 +1187,7 @@ nav {
 
 .modal-desc {
   margin: 0 0 16px;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: cursive;
   font-size: 0.95rem;
   line-height: 1.75;
   color: rgba(255, 255, 255, 0.78);
